@@ -38,5 +38,5 @@ Default output format [None]: json
 
 ## Getting started
 
-- ### [Serverside](#)
+- ### [Serverside](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)
 - ### [ClientSide](#)
