@@ -4,8 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "npm run clean && npm run build && aws lambda update-function-code --function-name deloTutorialFunction --zip-file fileb://build.zip --publish",
+    "clean": "rm build.zip",
+    "build": "zip -r build.zip node_modules index.js app.js routes.js"
   },
   "author": "delo",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.658.0",
+    "aws-serverless-express": "^3.3.8",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
 }
