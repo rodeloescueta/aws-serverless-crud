@@ -12,7 +12,7 @@ Fill the function name, I will use ‘deloTutorialFunction’ for this example, 
 
 ![create function2](https://lh3.googleusercontent.com/G5JwemlX00ptI_J-uemQjtoKy5eRS5IcRzYRKfVUoF_mUvnRi1kjxheCTUhV_ToOedHU66GeBofF_x-B5i2qg2q-Uc7beyGWLJiCKuDReZckhMBT_sLGvUSg4mtvKSUCjdZVC1OtHg)
 
->Leave the Permissions field as it is, we will get back later to it to add permission our Lambda to access DynamoDB. Until then, our function will use the basic role which has really limited access and will be able to only upload logs to CloudWatch.
+> Leave the Permissions field as it is, we will get back later to it to add permission our Lambda to access DynamoDB. Until then, our function will use the basic role which has really limited access and will be able to only upload logs to CloudWatch.
 
 Click Create Function. It will take a few seconds before a success message “Congratulations! Your Lambda function _“deloTutorialFunction”_ has been successfully created. You can now change its code and configuration. Choose Test to input a test event when you want to test your function.” appear.
 
@@ -30,9 +30,9 @@ Click **Roles** and then **Create Role**.
 
 Choose the service that will use this role – in our case **Lambda** and click **Next: Permissions**
 
->Here, we can create our own custom policy or use the already available ones. The policies are basically rules in JSON format that tells the role what permissions should be given to the service attached to it. For our example here, we will use the already available AmazonDynamoDBFullAccess policy.
+> Here, we can create our own custom policy or use the already available ones. The policies are basically rules in JSON format that tells the role what permissions should be given to the service attached to it. For our example here, we will use the already available AmazonDynamoDBFullAccess policy.
 
-Type *dynamodb* in search box and select **AmazonDynamoDBFullAccess** then click next.
+Type _dynamodb_ in search box and select **AmazonDynamoDBFullAccess** then click next.
 
 Click **Next** and again **Next** and you should view the Review part.
 
@@ -82,11 +82,11 @@ Go to [https://console.aws.amazon.com/apigateway](https://console.aws.amazon.com
 
 We will create a brand new API by choosing New API and scroll down choose REST API as API type then click **Build**.
 
-* Choose REST as Protocol
-* New API
-* API name in my case 'tutorial-api'
-* Endpoint is Regional
-* Click **Create API**
+- Choose REST as Protocol
+- New API
+- API name in my case 'tutorial-api'
+- Endpoint is Regional
+- Click **Create API**
 
 ![api1](https://lh3.googleusercontent.com/4FygwW4PUpsZj-qRXFxxgVm8wEa6zVxSslnZGgmvanFm4HnAeEwT1VAuq2Jlzb9Q6oJpaOy7hkCXlT1arNtb6isngfSBcOpIIFGEgPteh3awgmaLiwd-wYquxz3XKFp8m19YG7FOow)
 
@@ -127,22 +127,27 @@ Create a new directory, I will name it **express-serverless-crud**.
 Go to that newly created directory and initialize a new Node.JS project.
 
 Initialize npm
+
 ```
 npm init
 # configure your npm or
 npm init -y
 # choose default for all
 ```
+
 We will need a few packages. Use the following command to install them:
+
 ```
 yarn add aws-sdk aws-serverless-express cors express
 #or use npm
 npm i aws-sdk aws-serverless-express cors express --save
 ```
+
 What we will use each of them for:
-* **aws-sdk** – to interact with AWS
-* **express & aws-serverless-express** – to use the power of express, rather than writing vanilla Node.JS
-* **cors** – package to enable cors for as a middleware in express
+
+- **aws-sdk** – to interact with AWS
+- **express & aws-serverless-express** – to use the power of express, rather than writing vanilla Node.JS
+- **cors** – package to enable cors for as a middleware in express
 
 Add a new **app.js** file in the root folder with the following content:
 
@@ -160,7 +165,9 @@ app.use(awsServerlessExpressMiddleware.eventContext());
 app.use("/", routes);
 module.exports = app;
 ```
+
 It’s a standard entry file for express applications with and extra middleware
+
 ```
 awsServerlessExpressMiddleware.eventContext()
 ```
@@ -296,6 +303,7 @@ Basically it just proxify the request/response to be compatible with serverless 
 Okay, now we can take the **node_modules** folder, **index.js**(the entry point of the lamba), **app.js**(the hearth of the application) and **routes.js**(well the routes :)), pack them to zip, go to the lambda page and upload them. Instead of doing this, we will use aws cli to do the job for us.
 
 Go to the **package.json** and include the following three lines in scripts part:
+
 ```
 "deploy": "npm run clean && npm run build && aws lambda update-function-code --function-name deloTutorialFunction --zip-file fileb://build.zip --publish",
 "clean": "rm build.zip",
@@ -318,9 +326,90 @@ It will:
 When the deploy is completed, you should receive a JSON response with details about the version of the lambda and some other things. In order to be sure it’s successfully deployed, you can go to the Amazon Console -> AWS Lambda and check when was the last update of the lambda. If it was a minutes ago, congrats! You are now able to deploy your application to AWS with one single command :wink:
 
 The API endpoints are now available and you can test them:
+
 ```
 Example GET
 {apiUrl}/records - Return all records (for now it is just an empty array [])
 ```
 
+# Implement local development capabilities
 
+Now comes the question, how we can develop and test the things locally before deploy. Something very important in order to avoid bad code in the so called production.
+
+## AWS Dynamodb Local
+
+1. Download and Install: Java Runtime Environment (JRE)
+2. Download and Extract: [Dynamodb local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+3. Run local dynamodb:
+
+```
+java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
+```
+
+4. Access at http://localhost:8000/shell/
+
+The database is now available and up, but it’s empty. We have to create a table, but in order to do that we will need the table model.
+
+We can take the one from our already existing table in AWS, but it will need some tweaks in order to be in the same format as expected by the aws-cli. So, you can use the following one:
+
+```
+{
+    "TableName": "tutorial",
+    "KeySchema": [
+      {
+        "AttributeName": "id",
+        "KeyType": "HASH"
+      }
+    ],
+    "AttributeDefinitions": [
+      {
+        "AttributeName": "id",
+        "AttributeType": "S"
+      }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+}
+```
+
+Create a new file in your project with name tutorial-table-model.json and paste that model there.
+
+One more script will be needed to create the table. Copy, Paste the following line in package.json scripts.
+
+```
+"create-database": "aws dynamodb create-table --cli-input-json file://tutorial-table-model.json --endpoint-url http://localhost:8080"
+```
+
+> What we do is to use the aws cli to create the table and specify the endpoint-url to our local DynamoDB instance. If not specify endpoint, it will target your aws based on aws-cli configuration
+
+Run the script by npm run create-database and the table will be created, which is indicated by the returned TableDescription in JSON format. So, the database is available and the table is created.
+
+The next thing is to create a local entry point for the application, because the current one is adjusted to AWS Lambda and is not suitable for local development.
+
+Create app-local.js file in the root folder of your project with the following content:
+
+```
+const app = require('./app');
+const port = 3000;
+app.listen(port, () => {
+    console.log(`listening on http://localhost:${port}`);
+});
+```
+
+It’s using the already available app logic and the only thing on top of it is to start local server using the listen method provided by express.
+
+One more script will be needed to start the application locally:
+
+```
+"start": "TABLE='employees' node app-local",
+```
+
+We are setting the Table environment variable to _**tutorial**_ and executing the local development file with node app-local. If it was successfully started, you should see on the console the following output:
+
+```
+listening on http://localhost:3000
+```
+
+The routes mentioned and tested earlier should be working now locally.
