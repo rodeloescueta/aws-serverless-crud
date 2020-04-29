@@ -1,4 +1,4 @@
-# Serverless CRUD using AWS Lambda, DynamoDB, API Gateway Node.JS, Vue and Vuetify
+# Serverless CRUD using AWS Lambda, DynamoDB, API Gateway Node, Express, Vue and Vuetify
 
 You can see and download the complete code in this repository but in order to understand the code, we will explore it file by file, step by step.
 
@@ -8,7 +8,7 @@ You can see and download the complete code in this repository but in order to un
 
 ![aws-modern-app](https://lh3.googleusercontent.com/BpxrjI12boOTNrZExxnMCDhQIp1R5amSZPSzyowfFK3RC4o-NJCstBljgcNjZrXxx_xL-hc0ldhVYISvLZLnJrNuhS42p9GfeUyYhYtYXR1Q0z7iKSk3QLV7QJv5dWhKPn89-mXnIA)
 
-## Here is the implementation plan:
+## Implementation plan:
 
 ### Server side
 
@@ -45,4 +45,4 @@ Default output format [None]: json
 ## Getting started
 
 - ### [Serverside](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)
-- ### [ClientSide](#)
+- ### [ClientSide]([#](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)

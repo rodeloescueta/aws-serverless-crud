@@ -67,6 +67,7 @@ router.post("/records", (req, res) => {
 
 router.delete("/records/:id", (req, res) => {
   const id = req.params.id;
+  console.log(req.body);
   const params = {
     TableName: TUTORIAL,
     Key: {
@@ -82,6 +83,8 @@ router.delete("/records/:id", (req, res) => {
 });
 
 router.put("/records", (req, res) => {
+  console.log(req.body);
+  // res.send("backend put");
   const id = req.body.id;
   const name = req.body.name;
   const params = {

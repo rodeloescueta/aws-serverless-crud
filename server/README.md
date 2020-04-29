@@ -379,7 +379,7 @@ Create a new file in your project with name tutorial-table-model.json and paste 
 One more script will be needed to create the table. Copy, Paste the following line in package.json scripts.
 
 ```
-"create-database": "aws dynamodb create-table --cli-input-json file://tutorial-table-model.json --endpoint-url http://localhost:8080"
+"create-database": "aws dynamodb create-table --cli-input-json file://tutorial-table-model.json --endpoint-url http://localhost:8000"
 ```
 
 > What we do is to use the aws cli to create the table and specify the endpoint-url to our local DynamoDB instance. If not specify endpoint, it will target your aws based on aws-cli configuration
@@ -403,7 +403,7 @@ It’s using the already available app logic and the only thing on top of it is 
 One more script will be needed to start the application locally:
 
 ```
-"start": "TABLE='employees' node app-local",
+"start": "node app-local",
 ```
 
 We are setting the Table environment variable to _**tutorial**_ and executing the local development file with node app-local. If it was successfully started, you should see on the console the following output:
