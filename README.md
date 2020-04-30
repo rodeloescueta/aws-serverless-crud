@@ -51,7 +51,7 @@ Default output format [None]: json
 
 ## Projects following this architecture
 
-- ### GCPortal (_ongoing_)
-- ### JESS (except S3)
-- ### HRDPlans
-- ### Notice (_pending_)
+- ##### GCPortal (_ongoing_)
+- ##### JESS (except S3, used local server for client)
+- ##### HRDPlans
+- ##### Notice (_pending_)
