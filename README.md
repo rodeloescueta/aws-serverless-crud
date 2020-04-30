@@ -23,7 +23,7 @@ You can see and download the complete code in this repository but in order to un
 
 - Setups vue.js and vuetify crud application
 - Connect to serverside through API gateway
-- Automate the deploy process in AWS S3 using AWS CLI
+- Setup Deploy process in AWS S3 using AWS CLI
 
 ## AWS-CLI Setup
 
@@ -47,4 +47,11 @@ Default output format [None]: json
 ## Getting started
 
 - ### [Serverside](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)
-- ### [ClientSide]([#](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)
+- ### [ClientSide](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)
+
+## Projects following this architecture
+
+- ### GCPortal (_ongoing_)
+- ### JESS (except S3)
+- ### HRDPlans
+- ### Notice (_pending_)
