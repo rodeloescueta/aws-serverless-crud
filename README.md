@@ -23,7 +23,7 @@ You can see and download the complete code in this repository but in order to un
 
 - Setups vue.js and vuetify crud application
 - Connect to serverside through API gateway
-- Setup Deploy process in AWS S3 using AWS CLI
+- Setup and deploy app in AWS S3
 
 ## AWS-CLI Setup
 
