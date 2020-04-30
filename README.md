@@ -17,7 +17,7 @@ You can see and download the complete code in this repository but in order to un
 - Configure AWS – Create Lambda function with API Gateway and DynamoDB database table creation
 - Setup new Node.JS project using Serverless Express and implement basic routes
 - Automate the deploy process in AWS Lambda using AWS CLI
-- Implement local development capabilities using Docker Compose (for easier development and testing)
+- Local development setup (for easier development and testing)
 
 ### Client Side
 
