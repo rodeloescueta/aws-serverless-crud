@@ -44,7 +44,7 @@ Default output format [None]: json
 
 > When you enter this command, the AWS CLI prompts you for four pieces of information (access key, secret access key, AWS Region, and output format). These are described in the following sections. The AWS CLI stores this information in a profile (a collection of settings) named default. The information in the default profile is used any time you run an AWS CLI command that doesn't explicitly specify a profile to use.
 
-## Getting started
+## Documentation for:
 
 - ### [Serverside](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)
 - ### [ClientSide](https://github.com/rodeloescueta/aws-serverless-crud/tree/master/server)
