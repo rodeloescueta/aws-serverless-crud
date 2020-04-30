@@ -70,7 +70,8 @@ import axios from "axios";
 export default {
   data: () => ({
     dialog: false,
-    url: "http://localhost:3000/records",
+    url: "https://hqvwxefkv7.execute-api.us-east-2.amazonaws.com/prod/records",
+    // url: "http://localhost:3000/records",
     headers: [
       {
         text: "Dessert (100g serving)",
@@ -137,11 +138,13 @@ export default {
     },
 
     save() {
+      console.log(this.editedItem, this.editedIndex);
       if (this.editedIndex > -1) {
         // Edit
         axios.put(this.url, this.editedItem).then((res) => {
           Object.assign(this.desserts[this.editedIndex], this.editedItem);
           console.log(res.data);
+          this.close();
         });
       } else {
         // Add
@@ -150,9 +153,9 @@ export default {
         this.desserts.push(this.editedItem);
         axios.post(this.url, this.editedItem).then((res) => {
           console.log(res.data);
+          this.close();
         });
       }
-      this.close();
     },
   },
 };
